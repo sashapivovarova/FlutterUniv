@@ -22,6 +22,47 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const CircleAvatar(
+                backgroundColor: Colors.transparent,
+                backgroundImage: NetworkImage(
+                  'https://github.com/sashapivovarova/memo/blob/main/eunsol.png?raw=true',
+                ),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Row(
+                    children: [
+                      Text('eunsol'),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text('2023 / 08 / 24'),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  const Text('Hello'),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.favorite,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
