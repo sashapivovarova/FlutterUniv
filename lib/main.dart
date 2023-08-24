@@ -14,12 +14,28 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Title',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w600,
-            ),
+          backgroundColor: Colors.black,
+          title: Column(
+            children: [
+              const Text(
+                'eunsol',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                'ツイート 62,689',
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.8),
+                  fontSize: 15,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
           ),
         ),
         body: const SingleChildScrollView(
