@@ -52,11 +52,24 @@ class MyApp extends StatelessWidget {
                     height: 4,
                   ),
                   const Text('Hello'),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.favorite,
-                    ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.favorite_border_rounded,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.repeat_rounded,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
