@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -26,12 +28,32 @@ class JanKenPage extends StatefulWidget {
 }
 
 class _JanKenPageState extends State<JanKenPage> {
-  String hand = 'Click the button';
+  String myHand = 'Me';
+  String computerHand = 'Computer';
 
   void onClicked(String clickedHand) {
     setState(() {
-      hand = clickedHand;
+      myHand = clickedHand;
+      generateComputerHand();
     });
+  }
+
+  void generateComputerHand() {
+    final randomNumber = Random().nextInt(3);
+    computerHand = randomNumberToHand(randomNumber);
+  }
+
+  String randomNumberToHand(int randomNumber) {
+    switch (randomNumber) {
+      case 0:
+        return '✊';
+      case 1:
+        return '✌️';
+      case 2:
+        return '🖐';
+      default:
+        return '✊';
+    }
   }
 
   @override
@@ -45,7 +67,29 @@ class _JanKenPageState extends State<JanKenPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              hand,
+              computerHand,
+              style: const TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
+                color: Colors.blue,
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            const Text(
+              'VS',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
+                color: Colors.blue,
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            Text(
+              myHand,
               style: const TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.w600,
