@@ -22,7 +22,22 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        body: const TweetTile(),
+        body: const SingleChildScrollView(
+          child: Column(
+            children: [
+              TweetTile(),
+              TweetTile(),
+              TweetTile(),
+              TweetTile(),
+              TweetTile(),
+              TweetTile(),
+              TweetTile(),
+              TweetTile(),
+              TweetTile(),
+              TweetTile(),
+            ],
+          ),
+        ),
       ),
     );
   }
