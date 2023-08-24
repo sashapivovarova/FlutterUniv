@@ -26,6 +26,8 @@ class JanKenPage extends StatefulWidget {
 }
 
 class _JanKenPageState extends State<JanKenPage> {
+  String result = 'Click the button';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,26 +35,48 @@ class _JanKenPageState extends State<JanKenPage> {
         title: const Text('Janken'),
       ),
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                print('✊');
-              },
-              child: const Text('✊'),
+            Text(
+              result,
+              style: const TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
+                color: Colors.blue,
+              ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                print('✌️');
-              },
-              child: const Text('✌️'),
+            const SizedBox(
+              height: 50,
             ),
-            ElevatedButton(
-              onPressed: () {
-                print('🖐');
-              },
-              child: const Text('🖐'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      result = '✊';
+                    });
+                  },
+                  child: const Text('✊'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      result = '✌️';
+                    });
+                  },
+                  child: const Text('✌️'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      result = '🖐';
+                    });
+                  },
+                  child: const Text('🖐'),
+                ),
+              ],
             ),
           ],
         ),
