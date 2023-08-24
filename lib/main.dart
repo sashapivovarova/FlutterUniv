@@ -37,15 +37,21 @@ class _JanKenPageState extends State<JanKenPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                print('✊');
+              },
               child: const Text('✊'),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                print('✌️');
+              },
               child: const Text('✌️'),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                print('🖐');
+              },
               child: const Text('🖐'),
             ),
           ],
