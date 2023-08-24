@@ -26,7 +26,13 @@ class JanKenPage extends StatefulWidget {
 }
 
 class _JanKenPageState extends State<JanKenPage> {
-  String result = 'Click the button';
+  String hand = 'Click the button';
+
+  void onClicked(String clickedHand) {
+    setState(() {
+      hand = clickedHand;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +45,7 @@ class _JanKenPageState extends State<JanKenPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              result,
+              hand,
               style: const TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.w600,
@@ -54,25 +60,19 @@ class _JanKenPageState extends State<JanKenPage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      result = '✊';
-                    });
+                    onClicked('✊');
                   },
                   child: const Text('✊'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      result = '✌️';
-                    });
+                    onClicked('✌️');
                   },
                   child: const Text('✌️'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      result = '🖐';
-                    });
+                    onClicked('🖐');
                   },
                   child: const Text('🖐'),
                 ),
