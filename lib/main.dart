@@ -74,7 +74,14 @@ class _JanKenPageState extends State<JanKenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Janken'),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Janken',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       body: Center(
         child: Column(
@@ -85,7 +92,7 @@ class _JanKenPageState extends State<JanKenPage> {
               style: const TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.w600,
-                color: Colors.blue,
+                color: Colors.black,
               ),
             ),
             const SizedBox(
@@ -96,7 +103,7 @@ class _JanKenPageState extends State<JanKenPage> {
               style: const TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.w600,
-                color: Colors.blue,
+                color: Colors.black,
               ),
             ),
             const SizedBox(
@@ -107,7 +114,7 @@ class _JanKenPageState extends State<JanKenPage> {
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.w600,
-                color: Colors.blue,
+                color: Colors.black,
               ),
             ),
             const SizedBox(
@@ -116,9 +123,9 @@ class _JanKenPageState extends State<JanKenPage> {
             Text(
               myHand,
               style: const TextStyle(
-                fontSize: 30,
+                fontSize: 50,
                 fontWeight: FontWeight.w600,
-                color: Colors.blue,
+                color: Colors.black,
               ),
             ),
             const SizedBox(
@@ -128,22 +135,49 @@ class _JanKenPageState extends State<JanKenPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(70, 60),
+                    backgroundColor: Colors.black,
+                  ),
                   onPressed: () {
                     onClicked('✊');
                   },
-                  child: const Text('✊'),
+                  child: const Text(
+                    '✊',
+                    style: TextStyle(
+                      fontSize: 40,
+                    ),
+                  ),
                 ),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(70, 60),
+                    backgroundColor: Colors.black,
+                  ),
                   onPressed: () {
                     onClicked('✌️');
                   },
-                  child: const Text('✌️'),
+                  child: const Text(
+                    '✌️',
+                    style: TextStyle(
+                      fontSize: 40,
+                    ),
+                  ),
                 ),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(70, 60),
+                    backgroundColor: Colors.black,
+                  ),
                   onPressed: () {
                     onClicked('🖐');
                   },
-                  child: const Text('🖐'),
+                  child: const Text(
+                    '🖐',
+                    style: TextStyle(
+                      fontSize: 40,
+                    ),
+                  ),
                 ),
               ],
             ),
