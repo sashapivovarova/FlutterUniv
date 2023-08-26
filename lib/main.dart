@@ -32,13 +32,16 @@ class PixabayPage extends StatefulWidget {
 }
 
 class _PixabayPageState extends State<PixabayPage> {
-  List hits = [];
+  List<PixabayImage> pixabayImages = [];
 
   Future<void> fetchImages(String text) async {
     final String path =
         'https://pixabay.com/api/?key=$apiKey=$text&image_type=photo&per_page=100';
     final response = await Dio().get(path);
-    hits = response.data['hits'];
+    final List hits = response.data['hits'];
+    pixabayImages = hits.map((e) {
+      return PixabayImage.fromMap(e);
+    }).toList();
     setState(() {});
   }
 
@@ -82,18 +85,18 @@ class _PixabayPageState extends State<PixabayPage> {
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3),
-          itemCount: hits.length,
+          itemCount: pixabayImages.length,
           itemBuilder: (context, index) {
-            final hit = hits[index];
+            final pixabayImage = pixabayImages[index];
             return InkWell(
               onTap: () async {
-                shareImage(hit['webformatURL']);
+                shareImage(pixabayImage.webformatURL);
               },
               child: Stack(
                 fit: StackFit.expand,
                 children: [
                   Image.network(
-                    hit['previewURL'],
+                    pixabayImage.previewURL,
                     fit: BoxFit.cover,
                   ),
                   Align(
@@ -111,7 +114,7 @@ class _PixabayPageState extends State<PixabayPage> {
                             width: 4,
                           ),
                           Text(
-                            '${hit['likes']}',
+                            '${pixabayImage.likes}',
                             style: const TextStyle(
                               color: Colors.white,
                             ),
@@ -126,6 +129,25 @@ class _PixabayPageState extends State<PixabayPage> {
           },
         ),
       ),
+    );
+  }
+}
+
+class PixabayImage {
+  final String webformatURL, previewURL;
+  final int likes;
+
+  PixabayImage({
+    required this.webformatURL,
+    required this.previewURL,
+    required this.likes,
+  });
+
+  factory PixabayImage.fromMap(Map<String, dynamic> image) {
+    return PixabayImage(
+      webformatURL: image['webformatURL'],
+      previewURL: image['previewURL'],
+      likes: image['likes'],
     );
   }
 }
