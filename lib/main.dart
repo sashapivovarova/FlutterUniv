@@ -1,5 +1,9 @@
+import 'dart:io';
+import 'package:share_plus/share_plus.dart';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'api_key.dart';
 
 void main() {
@@ -68,38 +72,52 @@ class _PixabayPageState extends State<PixabayPage> {
           itemCount: hits.length,
           itemBuilder: (context, index) {
             Map<String, dynamic> hit = hits[index];
-            return Stack(
-              fit: StackFit.expand,
-              children: [
-                Image.network(
-                  hit['previewURL'],
-                  fit: BoxFit.cover,
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Container(
-                    color: Colors.black,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          color: Colors.white,
-                          Icons.thumb_up_off_alt_rounded,
-                        ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text(
-                          '${hit['likes']}',
-                          style: const TextStyle(
+            return InkWell(
+              onTap: () async {
+                Response response = await Dio().get(
+                  hit['webformatURL'],
+                  options: Options(responseType: ResponseType.bytes),
+                );
+
+                Directory dir = await getTemporaryDirectory();
+                File file = await File('${dir.path}/image.png')
+                    .writeAsBytes(response.data);
+
+                await Share.shareFiles([file.path]);
+              },
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.network(
+                    hit['previewURL'],
+                    fit: BoxFit.cover,
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Container(
+                      color: Colors.black,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
                             color: Colors.white,
+                            Icons.thumb_up_off_alt_rounded,
                           ),
-                        ),
-                      ],
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            '${hit['likes']}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           },
         ),
