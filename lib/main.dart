@@ -35,11 +35,24 @@ class _PixabayPageState extends State<PixabayPage> {
   List hits = [];
 
   Future<void> fetchImages(String text) async {
-    String path =
+    final String path =
         'https://pixabay.com/api/?key=$apiKey=$text&image_type=photo&per_page=100';
-    Response response = await Dio().get(path);
+    final response = await Dio().get(path);
     hits = response.data['hits'];
     setState(() {});
+  }
+
+  Future<void> shareImage(String url) async {
+    final response = await Dio().get(
+      url,
+      options: Options(responseType: ResponseType.bytes),
+    );
+
+    final dir = await getTemporaryDirectory();
+    final file =
+        await File('${dir.path}/image.png').writeAsBytes(response.data);
+
+    await Share.shareFiles([file.path]);
   }
 
   @override
@@ -71,19 +84,10 @@ class _PixabayPageState extends State<PixabayPage> {
               crossAxisCount: 3),
           itemCount: hits.length,
           itemBuilder: (context, index) {
-            Map<String, dynamic> hit = hits[index];
+            final hit = hits[index];
             return InkWell(
               onTap: () async {
-                Response response = await Dio().get(
-                  hit['webformatURL'],
-                  options: Options(responseType: ResponseType.bytes),
-                );
-
-                Directory dir = await getTemporaryDirectory();
-                File file = await File('${dir.path}/image.png')
-                    .writeAsBytes(response.data);
-
-                await Share.shareFiles([file.path]);
+                shareImage(hit['webformatURL']);
               },
               child: Stack(
                 fit: StackFit.expand,
