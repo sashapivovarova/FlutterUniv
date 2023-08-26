@@ -41,15 +41,16 @@ class _PixabayPageState extends State<PixabayPage> {
   @override
   void initState() {
     super.initState();
-    fetchImages('flower');
+    fetchImages(' ');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black,
         title: TextFormField(
-          initialValue: 'flower',
+          initialValue: ' ',
           decoration: const InputDecoration(
             fillColor: Colors.white,
             filled: true,
@@ -67,8 +68,38 @@ class _PixabayPageState extends State<PixabayPage> {
           itemCount: hits.length,
           itemBuilder: (context, index) {
             Map<String, dynamic> hit = hits[index];
-            return Image.network(
-              hit['previewURL'],
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.network(
+                  hit['previewURL'],
+                  fit: BoxFit.cover,
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    color: Colors.black,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          color: Colors.white,
+                          Icons.thumb_up_off_alt_rounded,
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          '${hit['likes']}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             );
           },
         ),
