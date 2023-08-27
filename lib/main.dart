@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sample/objectbox.g.dart';
 import 'package:sample/model/life_event.dart';
-import 'package:sample/page/add_page.dart';
 
 void main() {
   runApp(
@@ -15,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -44,6 +44,10 @@ class _LifeCounterPageState extends State<LifeCounterPage> {
   Future<void> initialize() async {
     store = await openStore();
     lifeEventBox = store?.box<LifeEvent>();
+    fetchLifeEvents();
+  }
+
+  void fetchLifeEvents() {
     lifeEvents = lifeEventBox?.getAll() ?? [];
     setState(() {});
   }
@@ -61,11 +65,49 @@ class _LifeCounterPageState extends State<LifeCounterPage> {
           return Text(lifeEvent.title);
         },
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return const AddLifeEventPage();
-        }));
-      }),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(
+          Icons.add,
+          size: 40,
+        ),
+        onPressed: () async {
+          final newLifeEvent = await Navigator.of(context).push<LifeEvent>(
+            MaterialPageRoute(
+              builder: (context) {
+                return const AddLifeEventPage();
+              },
+            ),
+          );
+          if (newLifeEvent != null) {
+            lifeEventBox?.put(newLifeEvent);
+            fetchLifeEvents();
+          }
+        },
+      ),
+    );
+  }
+}
+
+class AddLifeEventPage extends StatefulWidget {
+  const AddLifeEventPage({super.key});
+
+  @override
+  State<AddLifeEventPage> createState() => _AddLifeEventPageState();
+}
+
+class _AddLifeEventPageState extends State<AddLifeEventPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Add Life Event'),
+      ),
+      body: TextFormField(
+        onFieldSubmitted: (text) {
+          final lifeEvent = LifeEvent(title: text, count: 0);
+          Navigator.of(context).pop(lifeEvent);
+        },
+      ),
     );
   }
 }
