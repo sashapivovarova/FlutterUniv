@@ -17,9 +17,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: PixabayPage(),
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.black,
+      ),
+      home: const PixabayPage(),
     );
   }
 }
@@ -80,54 +83,54 @@ class _PixabayPageState extends State<PixabayPage> {
           },
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3),
-          itemCount: pixabayImages.length,
-          itemBuilder: (context, index) {
-            final pixabayImage = pixabayImages[index];
-            return InkWell(
-              onTap: () async {
-                shareImage(pixabayImage.webformatURL);
-              },
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  Image.network(
-                    pixabayImage.previewURL,
-                    fit: BoxFit.cover,
-                  ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Container(
-                      color: Colors.black,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
+      body: GridView.builder(
+        padding: const EdgeInsets.only(
+          top: 20,
+        ),
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+        itemCount: pixabayImages.length,
+        itemBuilder: (context, index) {
+          final pixabayImage = pixabayImages[index];
+          return InkWell(
+            onTap: () async {
+              shareImage(pixabayImage.webformatURL);
+            },
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.network(
+                  pixabayImage.previewURL,
+                  fit: BoxFit.cover,
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    color: Colors.transparent,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          color: Colors.white,
+                          Icons.favorite_rounded,
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          '${pixabayImage.likes}',
+                          style: const TextStyle(
                             color: Colors.white,
-                            Icons.thumb_up_off_alt_rounded,
                           ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            '${pixabayImage.likes}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            );
-          },
-        ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
