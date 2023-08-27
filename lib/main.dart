@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sample/page/homepage.dart';
 
 void main() {
   runApp(
@@ -12,9 +11,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Material App',
-      home: HomePage(),
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const LifeCounterPage(),
     );
+  }
+}
+
+class LifeCounterPage extends StatefulWidget {
+  const LifeCounterPage({super.key});
+
+  @override
+  State<LifeCounterPage> createState() => _LifeCounterPageState();
+}
+
+class _LifeCounterPageState extends State<LifeCounterPage> {
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold();
   }
 }
