@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 Future<void> main() async {
-  // main 関数でも async が使えます
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    // これが Firebase の初期化処理です。
-    options: DefaultFirebaseOptions.android,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
 }
@@ -58,7 +56,6 @@ class _SignInPageState extends State<SignInPage> {
           child: const Text('GoogleSignIn'),
           onPressed: () async {
             await signInWithGoogle();
-
             print(FirebaseAuth.instance.currentUser?.displayName);
           },
         ),
