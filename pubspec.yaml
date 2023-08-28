@@ -43,6 +43,7 @@ dependencies:
   objectbox: ^2.2.1
   objectbox_flutter_libs: ^2.2.1
   objectbox_generator: ^2.2.1
+  firebase_core: ^2.15.1
 
 dev_dependencies:
   flutter_test:
