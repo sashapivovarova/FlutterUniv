@@ -16,10 +16,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(),
-      home: const SignInPage(),
-    );
+    return const MaterialApp();
   }
 }
 
@@ -49,14 +46,13 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('GoogleSignIn'),
+        title: const Text('Google SignIn'),
       ),
       body: Center(
         child: ElevatedButton(
-          child: const Text('GoogleSignIn'),
+          child: const Text('Google SignIn'),
           onPressed: () async {
             await signInWithGoogle();
-            print(FirebaseAuth.instance.currentUser?.displayName);
           },
         ),
       ),
